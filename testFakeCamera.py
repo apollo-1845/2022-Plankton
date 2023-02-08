@@ -1,6 +1,6 @@
 import cv2
 
-from ISS.fake.camera import Camera # For fake camera only
+from fake.camera import Camera # For fake camera only
 
 cam = Camera()
 

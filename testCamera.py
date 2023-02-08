@@ -1,7 +1,7 @@
 import cv2
 from time import sleep
 
-from ISS.fake.camera import Camera # For fake camera only
+from camera import Camera # For fake camera only
 
 cam = Camera()
 
