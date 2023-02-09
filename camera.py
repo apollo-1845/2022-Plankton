@@ -1,7 +1,9 @@
 """Functions for getting camera data"""
 
 from picamera import PiCamera
-import picamera
+import picamera.array
+
+from time import sleep
 
 class Camera():
     """A camera that captures numpy-array images with """
@@ -14,3 +16,15 @@ class Camera():
         stream = picamera.array.PiRGBArray(self.camera)
         self.camera.capture(stream, format="bgr", use_video_port=True)
         return stream.array
+    
+    def start_preview(self):
+        self.camera.start_preview()
+        
+    def test_brightness(self):
+        for brightness in range(100):
+            self.camera.annotate_text = "Brightness %s" % brightness
+            self.camera.brightness = brightness
+            sleep(0.1)
+        
+    def stop_preview(self):
+        self.camera.stop_preview()

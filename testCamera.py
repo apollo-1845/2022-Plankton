@@ -1,25 +1,28 @@
 import cv2
 from time import sleep
 
+# Press ENTER to toggle preview
+
 from camera import Camera # For fake camera only
 
 cam = Camera()
 
+print("""---
+Please click this console.
+Then, press ENTER to toggle the image preview.
+---""")
+
+sleep(3)
+
 while True:
     img = cam.get_photo()
-    # Display Image
-    # Window name in which image is displayed
-    window_name = 'image'
+    
+    cam.start_preview()
+    
+    # cam.test_brightness()
 
-    # Using cv2.imshow() method
-    # Displaying the image
-    cv2.imshow(window_name, img)
+    input()
 
-    # waits for user to press any key
-    # (this is necessary to avoid Python kernel form crashing)
-    cv2.waitKey(0)
-
-    # closing all open windows
-    cv2.destroyAllWindows()
-
-    sleep(1)
+    cam.stop_preview()
+    
+    input("ENTER TO ENTER PREVIEW")
