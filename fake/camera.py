@@ -17,7 +17,6 @@ class Camera():
         """Set the image as a certain ID from https://github.com/raspberrypilearning/astropi-ndvi/tree/master/en/resources/"""
         self.image_id = id
 
-
     def get_photo(self):
         # Get image link
         url = f"https://github.com/raspberrypilearning/astropi-ndvi/blob/master/en/resources/cslab3ogel_Files_RawData_raw_image_{self.image_id}.jpeg?raw=true"
