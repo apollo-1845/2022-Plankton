@@ -1,7 +1,7 @@
 # Plankton's ISS Code Entrypoint
 
 from datetime import datetime, timedelta
-from time import sleep
+import time
 from exif import Image
 
 import cv2
@@ -29,6 +29,12 @@ def run_iteration(i:int, camera:Camera):
     with open(filename, 'rb') as photo_file:
         photo_tags = Image(photo_file.read())
 
+    print(str(datetime.now()+timedelta(hours=1)))
+
+    # Add timestamp
+    photo_tags.datetime = str(datetime.now()+timedelta(hours=1))
+
+    # Add ISS location
     west, lat, south, long = get_location()
     photo_tags.gps_latitude = lat
     photo_tags.gps_latitude_ref = "W" if west else "E"
