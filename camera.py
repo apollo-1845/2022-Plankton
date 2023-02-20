@@ -10,6 +10,7 @@ class Camera():
     def __init__(self):
         """Initialise the camera"""
         self.camera = PiCamera()
+        self.camera.resolution = (2592, 1944)
 
     def get_photo(self):
         """Capture a photo and return it as a BGR numpy array"""

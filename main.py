@@ -8,13 +8,20 @@ import cv2
 
 from camera import Camera
 from location import get_location
+from photoProcessing import remove_camera_cover, is_night
 
-PROGRAM_TIME = timedelta(seconds=10)
+PROGRAM_TIME = timedelta(seconds=30) # TODO Update
 MAX_CYCLE_SECONDS = 8
 
 def run_iteration(i:int, camera:Camera):
-    """Run one iteration of the program"""
+    """Run one iteration of the program; return True if successful and should increment file-naming counter"""
     photo = camera.get_photo()
+
+    photo = remove_camera_cover(photo)
+    if(is_night(photo)):
+        print("NIGHT")
+        return False
+
     filename = f"data/{i}.jpg"
     cv2.imwrite(filename, photo) # PNG is not supported by exif (BUT I THINK JPEG IS LOSSY!)
 
@@ -37,6 +44,8 @@ def run_iteration(i:int, camera:Camera):
     with open(filename, 'wb') as photo_file:
         photo_file.write(photo_tags.get_file())
 
+    return True
+
 
 PROGRAM_TIME_MINUS_ONE_CYCLE = PROGRAM_TIME-timedelta(seconds=MAX_CYCLE_SECONDS)
 
@@ -49,12 +58,12 @@ camera = Camera()
 i = 0
 
 while(now < start + PROGRAM_TIME_MINUS_ONE_CYCLE):
-    print(now-start)
+    print(i, now-start)
     try:
-        run_iteration(i, camera)
-    except:
-        print("ERROR")
+        successful = run_iteration(i, camera)
+        if(successful): i += 1
+    except Exception as err:
+        print("ERROR", err)
         pass # and ignore error
-    i += 1
     now = datetime.now()
 print("Ended in", now-start)
