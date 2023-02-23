@@ -48,7 +48,6 @@ def run_iteration(i:int, camera:Camera):
 
     photo_tags[270] = f"{lat} {long}" # Custom Image Description w/ location
 
-    print(photo_tags)
     pil_img.save(filename, tiffinfo=photo_tags)
 
     return True
