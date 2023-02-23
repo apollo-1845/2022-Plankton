@@ -58,13 +58,13 @@ PROGRAM_TIME_MINUS_ONE_CYCLE = PROGRAM_TIME-timedelta(seconds=MAX_CYCLE_SECONDS)
 
 # Main loop
 start = datetime.now()
-now = datetime.now()
+last_iteration_time = datetime.now()
 
 camera = Camera()
 
 i = 0
 
-while(last_iteration_time < start + PROGRAM_TIME_MINUS_ONE_CYCLE):
+while(last_iteration_time < start + PROGRAM_TIME_MINUS_ONE_CYCLE) & i < 600:
     print(i, last_iteration_time-start)
     try:
         successful = run_iteration(i, camera)
